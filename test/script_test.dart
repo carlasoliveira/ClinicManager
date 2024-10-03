@@ -1,5 +1,8 @@
+//import 'package:sqflite_common/sqlite_api.dart';
+//import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+
 main() {
-  late Database db;
+  /*late Database db;
   setUpAll(()async  {
     databaseFactory = databaseFactoryFfi;
     sqfliteFfiInit();
@@ -28,5 +31,5 @@ class DAOProfessor implements IDAOProfessor {
       VALUES (?,?,?,?)''', [dto.tipoDeProcedimento]);
     dto.id = id;
     return dto;
-  }
+  }*/
 }

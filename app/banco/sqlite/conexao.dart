@@ -1,6 +1,6 @@
-import 'package:gestao_notas/app/banco/script.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import '../banco_script.dart';
 
 class Conexao {
   static late Database _db;
@@ -13,12 +13,18 @@ class Conexao {
         path,
         version: 1,
         onCreate: (db, version) {
-          criarTabelas.forEach(db.execute);
-          inserirRegistros.forEach(db.execute);
+          scriptCriarTabelas.forEach(db.execute);
         },
       );
       conexaoCriada = true;
     }
     return _db;
+  }
+
+  static Future<void> fechar() async {
+    if (conexaoCriada) {
+      await _db.close();
+      conexaoCriada = false;
+    }
   }
 }
