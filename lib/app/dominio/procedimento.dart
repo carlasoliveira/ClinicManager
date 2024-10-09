@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import 'dto/dto_procedimento.dart';
 import 'interface/i_dao_procedimento.dart';
 
@@ -9,12 +11,12 @@ class Procedimento {
   late String objetivo;
   late String tempoDuracao;
   late double valor;
-  late bool estado;
+  late int estado;
 
   late DTOProcedimento dto;
   late IDAOProcedimento dao;
 
-  Procedimento({required this.dto, required this.dao}){
+  Procedimento({required this.dao}){
     id = dto.id;
     nome = dto.nome;
     tipo = dto.tipo;
@@ -25,16 +27,24 @@ class Procedimento {
     estado = dto.estado;
   }
 
-  void salvar(){
-    dao.salvar(dto);
+  Future<DTOProcedimento> salvar(DTOProcedimento dto) async{
+    return dao.salvar(dto);
   }
 
-  void alterar(DTOProcedimento dto){
-    dao.alterar(dto);
+  Future<DTOProcedimento> alterar(DTOProcedimento dto) async{
+    return dao.alterar(dto);
   }
 
-  void excluir(){
+  void excluir(dynamic id) async{
     dao.excluir(id);
+  }
+
+  Future<List<DTOProcedimento>> buscar() async{
+    return dao.buscar();
+  }
+
+  Future<List<DTOProcedimento>> buscarPorId(int idProcedimento) async{
+    return dao.buscarPorId(idProcedimento);
   }
 }
 

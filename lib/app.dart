@@ -19,7 +19,7 @@ class App extends StatelessWidget{
       ),
       routes: {
         '/': (context) => Principal(),
-        '/procedimentos': (context) => Procedimento(),
+        '/procedimentos': (context) => ProcedimentoForm(),
         '/funcionarios' : (context) => Funcionario(),
         '/clientes': (context) => Cliente(),
         '/agenda': (context) => Agenda(),

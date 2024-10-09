@@ -7,7 +7,7 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
   late Database _db;
 
   final String inserirSQL = '''
-    INSERT INTO procedimento (nome, tipo, descricao, descricao, objetivo, tempoDuracao, valor, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO procedimento (nome, tipo, descricao, objetivo, tempoDuracao, valor, estado) VALUES (?, ?, ?, ?, ?, ?, ?)
   ''';
 
   final String alterarSQL = '''
@@ -66,10 +66,9 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
   }
 
   @override
-  Future<bool> excluir(int id) async {
+  void excluir(dynamic id) async {
     _db = await Conexao.abrir();
     _db.rawDelete(excluirSQL, [id]);
-    return true;
   }
 
   @override
@@ -84,7 +83,7 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
         objetivo: e['objetivo'] as String, 
         tempoDuracao: e['tempoDuracao'] as String, 
         valor:  e['valor'] as double, 
-        estado: e['estado'] as bool)).toList();
+        estado: e['estado'] as int)).toList();
     });
   }
 
@@ -100,7 +99,7 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
         objetivo: e['objetivo'] as String, 
         tempoDuracao: e['tempoDuracao'] as String, 
         valor:  e['valor'] as double, 
-        estado: e['estado'] as bool)).toList();
+        estado: e['estado'] as int)).toList();
     });
   }
 }

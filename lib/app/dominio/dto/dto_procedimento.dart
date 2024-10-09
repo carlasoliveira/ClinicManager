@@ -6,7 +6,7 @@ class DTOProcedimento {
   late String objetivo;
   late String tempoDuracao;
   late double valor;
-  late bool estado;
+  late int estado;
 
   DTOProcedimento(
       {this.id,
