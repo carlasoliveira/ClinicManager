@@ -7,7 +7,6 @@ class ProcedimentoForm extends StatelessWidget {
   const ProcedimentoForm({Key? key}) : super(key: key);
 
   Future<List<DTOProcedimento>> buscar() async {
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> chegou aqui aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     DTOProcedimento dto = DTOProcedimento(
         nome: "nome",
         tipo: "tipo",
@@ -17,8 +16,10 @@ class ProcedimentoForm extends StatelessWidget {
         valor: 100,
         estado: 1);
     APProcedimento apProcedimento = APProcedimento();
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>'+dto.nome);
-    await apProcedimento.salvar(dto);
+    DTOProcedimento dtoTest = await apProcedimento.salvar(dto);
+
+    print(dtoTest.nome);
+
     return await apProcedimento.buscar();
   }
 
@@ -45,16 +46,6 @@ class ProcedimentoForm extends StatelessWidget {
               );
             }
           }),
-    ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FormProcedimento()),
-          );
-        },
-        child: Icon(Icons.add),
-      ),
     );
   }
 }

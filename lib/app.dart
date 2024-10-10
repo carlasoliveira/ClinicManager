@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_flutter/widget/form_procedimento.dart';
 import 'package:projeto_flutter/widget/pagina_agenda.dart';
 import 'package:projeto_flutter/widget/pagina_clientes.dart';
 import 'package:projeto_flutter/widget/pagina_funcionarios.dart';
@@ -23,6 +24,7 @@ class App extends StatelessWidget{
         '/funcionarios' : (context) => Funcionario(),
         '/clientes': (context) => Cliente(),
         '/agenda': (context) => Agenda(),
+        '/orm-procedimento': (context) => FormProcedimento(),
       },
     );
   }

@@ -1,5 +1,5 @@
 class Rota{
   static String home = '/';
-  static String ListaAluno = '/list';
-  static String FormularioAluno = '/form';
+  static String ListaProcedimento = '/list';
+  static String FormularioProcedimento = '/form';
 }
