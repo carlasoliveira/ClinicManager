@@ -1,87 +1,142 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_flutter/app/aplicacao/ap_funcionario.dart';
+import 'package:projeto_flutter/app/aplicacao/ap_procedimento.dart';
+import 'package:projeto_flutter/app/dominio/dto/dto_funcionario.dart';
+import 'package:projeto_flutter/app/dominio/dto/dto_procedimento.dart';
 
-class FormProcedimento extends StatelessWidget {
+class FormProcedimento extends StatefulWidget {
   const FormProcedimento({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    final _nomeController = TextEditingController();
-    final _tipoController = TextEditingController();
-    final _descricaoController = TextEditingController();
-    final _objetivoController = TextEditingController();
-    final _tempoDuracaoController = TextEditingController();
-    final _valorController = TextEditingController();
+  _FormProcedimentoState createState() => _FormProcedimentoState();
+}
 
-    void _criarProcedimento() {
-      final nome = _nomeController.text;
-      final tipo = _tipoController.text;
-      final descricao = _descricaoController.text;
-      final objetivo = _objetivoController.text;
-      final tempoDuracao = _tempoDuracaoController.text;
-      final valor = _valorController.text;
+class _FormProcedimentoState extends State<FormProcedimento> {
+  final _nomeController = TextEditingController();
+  final _tipoController = TextEditingController();
+  final _descricaoController = TextEditingController();
+  final _objetivoController = TextEditingController();
+  final _tempoDuracaoController = TextEditingController();
+  final _valorController = TextEditingController();
+  DTOFuncionario? _funcionarioSelecionado;
+  late Future<List<DTOFuncionario>> _funcionariosFuture;
 
-      void criar(String nome, String tipo, String descricao, String objetivo,
-          String tempoDuracao, String valor) {
-        // Implementação da função criar
-        print('Nome: $nome');
-        print('Tipo: $tipo');
-        print('Descrição: $descricao');
-        print('Objetivo: $objetivo');
-        print('Tempo de Duração: $tempoDuracao');
-        print('Valor: $valor');
-      }
+  @override
+  void initState() {
+    super.initState();
+    _funcionariosFuture = listarFuncionarios();
+  }
 
-      // Chame a função criar com os dados coletados
-      criar(nome, tipo, descricao, objetivo, tempoDuracao, valor);
+  Future<List<DTOFuncionario>> listarFuncionarios() async {
+    APFuncionario apFuncionario = APFuncionario();
+    return await apFuncionario.buscar();
+  }
+
+  void _criarProcedimento() async {
+    final nome = _nomeController.text;
+    final tipo = _tipoController.text;
+    final descricao = _descricaoController.text;
+    final objetivo = _objetivoController.text;
+    final tempoDuracao = _tempoDuracaoController.text;
+    final valor = _valorController.text;
+    final idFuncionario = _funcionarioSelecionado?.id;
+
+    if (idFuncionario == null) {
+      // Exibir uma mensagem de erro se nenhum funcionário for selecionado
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Por favor, selecione um funcionário')),
+      );
+      return;
     }
 
+    DTOProcedimento dto = DTOProcedimento(
+      nome: nome,
+      tipo: tipo,
+      descricao: descricao,
+      objetivo: objetivo,
+      tempoDuracao: tempoDuracao,
+      valor: double.parse(valor),
+      estado: 1,
+      idFuncionario: idFuncionario,
+    );
+
+    APProcedimento apProcedimento = APProcedimento();
+    await apProcedimento.salvar(dto);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Cadastro de Procedimentos'),
+      appBar: AppBar(
+        title: const Text('Cadastro de Procedimentos'),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextFormField(
+              controller: _nomeController,
+              key: Key('nome'),
+              decoration: InputDecoration(labelText: 'Nome do procedimento'),
+            ),
+            TextFormField(
+              controller: _tipoController,
+              key: Key('tipo'),
+              decoration: InputDecoration(labelText: 'Tipo do procedimento'),
+            ),
+            TextFormField(
+              controller: _descricaoController,
+              key: Key('descricao'),
+              decoration: InputDecoration(labelText: 'Descrição do procedimento'),
+            ),
+            TextFormField(
+              controller: _objetivoController,
+              key: Key('objetivo'),
+              decoration: InputDecoration(labelText: 'Objetivo do procedimento'),
+            ),
+            TextFormField(
+              controller: _tempoDuracaoController,
+              key: Key('tempoDuracao'),
+              decoration: InputDecoration(labelText: 'Tempo de duração do procedimento'),
+            ),
+            TextFormField(
+              controller: _valorController,
+              key: Key('valor'),
+              decoration: InputDecoration(labelText: 'Valor do procedimento'),
+            ),
+            FutureBuilder<List<DTOFuncionario>>(
+              future: _funcionariosFuture,
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return CircularProgressIndicator();
+                } else {
+                  final funcionarios = snapshot.data!;
+                  return DropdownButton<DTOFuncionario>(
+                    hint: Text('Selecione um funcionário'),
+                    value: _funcionarioSelecionado,
+                    onChanged: (DTOFuncionario? newValue) {
+                      setState(() {
+                        _funcionarioSelecionado = newValue;
+                      });
+                    },
+                    items: funcionarios.map((DTOFuncionario funcionario) {
+                      return DropdownMenuItem<DTOFuncionario>(
+                        value: funcionario,
+                        child: Text(funcionario.nome),
+                      );
+                    }).toList(),
+                  );
+                }
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _criarProcedimento,
+              child: Text('Criar Procedimento'),
+            ),
+          ],
         ),
-        body: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _nomeController,
-                key: Key('nome'),
-                decoration: InputDecoration(labelText: 'Nome do procedimento'),
-              ),
-              TextFormField(
-                controller: _tipoController,
-                key: Key('tipo'),
-                decoration: InputDecoration(labelText: 'Tipo do procedimento'),
-              ),
-              TextFormField(
-                controller: _descricaoController,
-                key: Key('descricao'),
-                decoration:
-                    InputDecoration(labelText: 'Descrição do procedimento'),
-              ),
-              TextFormField(
-                controller: _objetivoController,
-                key: Key('objetivo'),
-                decoration:
-                    InputDecoration(labelText: 'Objetivo do procedimento'),
-              ),
-              TextFormField(
-                controller: _tempoDuracaoController,
-                key: Key('tempoDuracao'),
-                decoration: InputDecoration(
-                    labelText: 'Tempo de duração de procedimento'),
-              ),
-              TextFormField(
-                controller: _valorController,
-                key: Key('valor'),
-                decoration: InputDecoration(labelText: 'Valor do procedimento'),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _criarProcedimento,
-                child: Text('Criar Procedimento'),
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }

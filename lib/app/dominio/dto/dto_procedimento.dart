@@ -7,6 +7,7 @@ class DTOProcedimento {
   late String tempoDuracao;
   late double valor;
   late int estado;
+  late dynamic idFuncionario;
 
   DTOProcedimento(
       {this.id,
@@ -16,6 +17,7 @@ class DTOProcedimento {
       required this.objetivo,
       required this.tempoDuracao,
       required this.valor,
-      required this.estado});
+      required this.estado,
+      required this.idFuncionario});
 
 }

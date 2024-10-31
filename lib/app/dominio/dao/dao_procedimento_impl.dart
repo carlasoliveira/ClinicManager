@@ -7,11 +7,11 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
   late Database _db;
 
   final String inserirSQL = '''
-    INSERT INTO procedimento (nome, tipo, descricao, objetivo, tempoDuracao, valor, estado) VALUES (?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO procedimento (nome, tipo, descricao, objetivo, tempoDuracao, valor, estado, fk_funcionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   ''';
 
   final String alterarSQL = '''
-    UPDATE procedimento SET nome = ?, tipo = ?, descricao = ?, objetivo = ?, tempoDuracao = ?, valor = ?, estado = ? WHERE id = ?
+    UPDATE procedimento SET nome = ?, tipo = ?, descricao = ?, objetivo = ?, tempoDuracao = ?, valor = ?, estado = ? id_funcionario = ? WHERE id = ?
   ''';
 
   final String excluirSQL = '''
@@ -36,7 +36,8 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
       dtoProcedimento.objetivo,
       dtoProcedimento.tempoDuracao,
       dtoProcedimento.valor,
-      dtoProcedimento.estado
+      dtoProcedimento.estado,
+      dtoProcedimento.idFuncionario
     ]);
     dtoProcedimento.id = id;
     return dtoProcedimento;
@@ -54,7 +55,8 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
       dtoProcedimento.tempoDuracao,
       dtoProcedimento.valor,
       dtoProcedimento.estado,
-      dtoProcedimento.id
+      dtoProcedimento.id,
+      dtoProcedimento.idFuncionario
     ]);
 
     if (controle == 0) {
@@ -83,7 +85,8 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
         objetivo: e['objetivo'] as String, 
         tempoDuracao: e['tempoDuracao'] as String, 
         valor:  e['valor'] as double, 
-        estado: e['estado'] as int)).toList();
+        estado: e['estado'] as int,
+        idFuncionario: e['idFuncionario'])).toList();
     });
   }
 
@@ -99,7 +102,8 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
         objetivo: e['objetivo'] as String, 
         tempoDuracao: e['tempoDuracao'] as String, 
         valor:  e['valor'] as double, 
-        estado: e['estado'] as int)).toList();
+        estado: e['estado'] as int,
+        idFuncionario: e['idFuncionario'])).toList();
     });
   }
 }

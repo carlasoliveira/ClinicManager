@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:projeto_flutter/route.dart';
 import 'package:projeto_flutter/tools.dart';
 import 'package:projeto_flutter/widget/form_procedimento.dart';
+import 'package:projeto_flutter/widget/form_funcionario.dart';
 import 'package:projeto_flutter/widget/menu_lateral.dart';
 import 'package:projeto_flutter/widget/pagina_clientes.dart';
+import 'package:projeto_flutter/widget/pagina_funcionarios.dart';
 import 'package:projeto_flutter/widget/pagina_procedimentos.dart';
+
 
 class Principal extends StatelessWidget {
   @override
@@ -25,7 +28,7 @@ class Principal extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => FormProcedimento()),
                   );
                 },
-                child: Text('Ir para Formulário de Procedimento'),
+                child: Text('Formulário de Procedimento'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -34,7 +37,25 @@ class Principal extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => ProcedimentoForm()),
                   );
                 },
-                child: Text('Ir para Lista de Procedimento'),
+                child: Text('Lista de Procedimentos'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FormFuncionario()),
+                  );
+                },
+                child: Text('Formulário de Funcionarios'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Funcionario()),
+                  );
+                },
+                child: Text('Lista de Funcionários'),
               ),
             ],
           ),

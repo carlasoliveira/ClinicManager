@@ -5,6 +5,7 @@ import 'package:projeto_flutter/widget/pagina_clientes.dart';
 import 'package:projeto_flutter/widget/pagina_funcionarios.dart';
 import 'package:projeto_flutter/widget/pagina_procedimentos.dart';
 import 'package:projeto_flutter/widget/principal.dart';
+import 'package:projeto_flutter/widget/form_funcionario.dart';
 
 class App extends StatelessWidget{
   const App({Key? key}) : super(key: key);
@@ -24,7 +25,8 @@ class App extends StatelessWidget{
         '/funcionarios' : (context) => Funcionario(),
         '/clientes': (context) => Cliente(),
         '/agenda': (context) => Agenda(),
-        '/orm-procedimento': (context) => FormProcedimento(),
+        '/form-procedimento': (context) => FormProcedimento(),
+        '/form-funcionario': (context) => FormFuncionario(),
       },
     );
   }
