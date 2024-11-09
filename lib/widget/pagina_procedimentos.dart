@@ -3,7 +3,7 @@ import 'package:projeto_flutter/app/aplicacao/ap_funcionario.dart';
 import 'package:projeto_flutter/app/dominio/dto/dto_funcionario.dart';
 import 'package:projeto_flutter/app/dominio/dto/dto_procedimento.dart';
 import 'package:projeto_flutter/app/aplicacao/ap_procedimento.dart';
-import 'package:projeto_flutter/app/dominio/funcionario.dart';
+import 'package:projeto_flutter/widget/form_procedimento.dart';
 
 @override
 class ProcedimentoForm extends StatefulWidget {
@@ -44,7 +44,21 @@ class _ProcedimentoFormState extends State<ProcedimentoForm> {
     }
  
     return Scaffold(
-      appBar: AppBar(title: Text('Procedimentos')),
+      appBar: AppBar(title: Text('Procedimentos'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+             Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FormProcedimento()),
+                  ).then((value) => setState(() {
+                    buscar();
+                  }));
+          },
+        ),
+      ],
+      ),
       body: FutureBuilder<List<DTOProcedimento>>(
           future: buscar(),
           builder: (context, consulta) {

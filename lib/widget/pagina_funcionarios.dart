@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_flutter/app/aplicacao/ap_funcionario.dart';
 import 'package:projeto_flutter/app/dominio/dto/dto_funcionario.dart';
+import 'package:projeto_flutter/widget/form_funcionario.dart';
 
 @override
 class Funcionario extends StatefulWidget{
@@ -70,7 +71,21 @@ class _FuncionarioState extends State<Funcionario> {
   }
 
     return Scaffold(
-      appBar: AppBar(title: Text('Funcionarios')),
+      appBar: AppBar(title: Text('Funcionarios'),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+             Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => FormFuncionario()),
+                  ).then((value) => setState(() {
+                    buscar();
+                  }));
+          },
+        ),
+      ],
+      ),
       body: FutureBuilder<List<DTOFuncionario>>(
           future: buscar(),
           builder: (context, consulta) {

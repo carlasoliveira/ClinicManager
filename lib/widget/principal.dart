@@ -25,28 +25,10 @@ class Principal extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FormProcedimento()),
-                  );
-                },
-                child: Text('Formulário de Procedimento'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
                     MaterialPageRoute(builder: (context) => ProcedimentoForm()),
                   );
                 },
                 child: Text('Lista de Procedimentos'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FormFuncionario()),
-                  );
-                },
-                child: Text('Formulário de Funcionarios'),
               ),
               ElevatedButton(
                 onPressed: () {
