@@ -33,7 +33,6 @@ class _FormFuncionarioState extends State<FormFuncionario> {
     final nome = _nomeController.text;
     final formacao = _formacaoController.text;
     final especialidade = _especialidadeController.text;
-    
 
     DTOFuncionario dto = DTOFuncionario(
       nome: nome,
@@ -44,6 +43,14 @@ class _FormFuncionarioState extends State<FormFuncionario> {
     APFuncionario apFuncionario = APFuncionario();
 
     await apFuncionario.salvar(dto);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Funcionário cadastrado com sucesso')),
+    );
+
+    _nomeController.clear();
+    _formacaoController.clear();
+    _especialidadeController.clear();
   }
 
   @override
@@ -69,7 +76,8 @@ class _FormFuncionarioState extends State<FormFuncionario> {
             TextFormField(
               controller: _especialidadeController,
               key: Key('especialidade'),
-              decoration: InputDecoration(labelText: 'Especialidade do funcionário'),
+              decoration:
+                  InputDecoration(labelText: 'Especialidade do funcionário'),
             ),
             SizedBox(height: 20),
             ElevatedButton(

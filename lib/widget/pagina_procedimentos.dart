@@ -6,9 +6,17 @@ import 'package:projeto_flutter/app/aplicacao/ap_procedimento.dart';
 import 'package:projeto_flutter/app/dominio/funcionario.dart';
 
 @override
-class ProcedimentoForm extends StatelessWidget {
+class ProcedimentoForm extends StatefulWidget {
   const ProcedimentoForm({Key? key}) : super(key: key);
-  
+
+  @override
+  State<ProcedimentoForm> createState() => _ProcedimentoFormState();
+}
+
+  late Future<List<DTOProcedimento>> _procedimentosFuture;
+
+
+class _ProcedimentoFormState extends State<ProcedimentoForm> {
   Future<List<DTOProcedimento>> buscar() async {
     APProcedimento apProcedimento = APProcedimento();
 
@@ -19,8 +27,9 @@ class ProcedimentoForm extends StatelessWidget {
 
   Future<String> buscarFuncionario(int id) async {
     APFuncionario apFuncionario = APFuncionario();
-
+    print("CHEGOU AQUI FUNÇÃO BUSCAR");
     DTOFuncionario funcionario = await apFuncionario.buscarPorId(id);
+    print("nome do func ${funcionario.nome}");
 
     return funcionario.nome;
   }
@@ -70,6 +79,9 @@ class ProcedimentoForm extends StatelessWidget {
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
+                            setState((){
+                              buscar();
+                            });
                             _excluirProcedimento(procedimento.id);
                           },
                         ),

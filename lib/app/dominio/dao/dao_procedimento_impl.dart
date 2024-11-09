@@ -11,7 +11,7 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
   ''';
 
   final String alterarSQL = '''
-    UPDATE procedimento SET nome = ?, tipo = ?, descricao = ?, objetivo = ?, tempoDuracao = ?, valor = ?, estado = ? id_funcionario = ? WHERE id = ?
+    UPDATE procedimento SET nome = ?, tipo = ?, descricao = ?, objetivo = ?, tempoDuracao = ?, valor = ?, estado = ? fk_funcionario = ? WHERE id = ?
   ''';
 
   final String excluirSQL = '''
@@ -40,6 +40,7 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
       dtoProcedimento.idFuncionario
     ]);
     dtoProcedimento.id = id;
+    print("CHEGOU AQUIIIIIIII --------------------> ${dtoProcedimento.id}");
     return dtoProcedimento;
   }
 
@@ -86,7 +87,7 @@ class DAOProcedimentoImpl implements IDAOProcedimento {
         tempoDuracao: e['tempoDuracao'] as String, 
         valor:  e['valor'] as double, 
         estado: e['estado'] as int,
-        idFuncionario: e['idFuncionario'])).toList();
+        idFuncionario: e['fk_funcionario'] as dynamic)).toList();
     });
   }
 

@@ -3,9 +3,14 @@ import 'package:projeto_flutter/app/aplicacao/ap_funcionario.dart';
 import 'package:projeto_flutter/app/dominio/dto/dto_funcionario.dart';
 
 @override
-class Funcionario extends StatelessWidget{
+class Funcionario extends StatefulWidget{
   const Funcionario({Key? key}):super(key: key);
 
+  @override
+  State<Funcionario> createState() => _FuncionarioState();
+}
+
+class _FuncionarioState extends State<Funcionario> {
   Future<List<DTOFuncionario>> buscar() async {
     APFuncionario apFuncionario = APFuncionario();
 
@@ -89,13 +94,16 @@ class Funcionario extends StatelessWidget{
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('Nome: ${funcionario.nome}'),
-                            Text('Tipo: ${funcionario.formacao}'),
-                            Text('Descrição: ${funcionario.especialidade}'),
+                            Text('Formação: ${funcionario.formacao}'),
+                            Text('Especialidade: ${funcionario.especialidade}'),
                           ],
                         ),
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
+                            setState((){
+                              buscar();
+                            });
                             _excluirFuncionario(funcionario.id);
                           },
                         ),

@@ -1,7 +1,7 @@
 const scriptCriarTabelas = [
   '''
   CREATE TABLE IF NOT EXISTS funcionario (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id INTEGER PRIMARY KEY,
       nome VARCHAR(150),
       formacao VARCHAR(150),
       especialidade VARCHAR(200)
@@ -9,7 +9,7 @@ const scriptCriarTabelas = [
   ''',
   '''
   CREATE TABLE IF NOT EXISTS procedimento (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id INTEGER PRIMARY KEY,
       nome VARCHAR(150),
       tipo VARCHAR(100),
       descricao VARCHAR(200),
@@ -17,7 +17,7 @@ const scriptCriarTabelas = [
       tempoDuracao VARCHAR(10),
       valor DOUBLE,
       estado BOOLEAN,
-      fk_funcionario INTEGER,
+      fk_funcionario INTEGER NOT NULL,
       FOREIGN KEY (fk_funcionario) REFERENCES funcionario(id)
   );
   '''

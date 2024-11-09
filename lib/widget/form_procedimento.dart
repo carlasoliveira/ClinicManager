@@ -18,7 +18,7 @@ class _FormProcedimentoState extends State<FormProcedimento> {
   final _objetivoController = TextEditingController();
   final _tempoDuracaoController = TextEditingController();
   final _valorController = TextEditingController();
-  DTOFuncionario? _funcionarioSelecionado;
+  int? _funcionarioSelecionadoId;
   late Future<List<DTOFuncionario>> _funcionariosFuture;
 
   @override
@@ -39,12 +39,19 @@ class _FormProcedimentoState extends State<FormProcedimento> {
     final objetivo = _objetivoController.text;
     final tempoDuracao = _tempoDuracaoController.text;
     final valor = _valorController.text;
-    final idFuncionario = _funcionarioSelecionado?.id;
+    final idFuncionario = _funcionarioSelecionadoId;
 
     if (idFuncionario == null) {
       // Exibir uma mensagem de erro se nenhum funcionário for selecionado
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Por favor, selecione um funcionário')),
+      );
+      return;
+    }
+
+    if (nome.isEmpty || tipo.isEmpty || descricao.isEmpty || objetivo.isEmpty || tempoDuracao.isEmpty || valor.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Por favor, preencha todos os campos')),
       );
       return;
     }
@@ -62,6 +69,17 @@ class _FormProcedimentoState extends State<FormProcedimento> {
 
     APProcedimento apProcedimento = APProcedimento();
     await apProcedimento.salvar(dto);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Procedimento cadastrado com sucesso')),
+    );
+
+    _nomeController.clear();
+    _tipoController.clear();
+    _descricaoController.clear();
+    _objetivoController.clear();
+    _tempoDuracaoController.clear();
+    _valorController.clear();
   }
 
   @override
@@ -111,17 +129,17 @@ class _FormProcedimentoState extends State<FormProcedimento> {
                   return CircularProgressIndicator();
                 } else {
                   final funcionarios = snapshot.data!;
-                  return DropdownButton<DTOFuncionario>(
+                  return DropdownButton<int>(
                     hint: Text('Selecione um funcionário'),
-                    value: _funcionarioSelecionado,
-                    onChanged: (DTOFuncionario? newValue) {
+                    value: _funcionarioSelecionadoId,
+                    onChanged: (int? newValue) {
                       setState(() {
-                        _funcionarioSelecionado = newValue;
+                        _funcionarioSelecionadoId = newValue;
                       });
                     },
                     items: funcionarios.map((DTOFuncionario funcionario) {
-                      return DropdownMenuItem<DTOFuncionario>(
-                        value: funcionario,
+                      return DropdownMenuItem<int>(
+                        value: funcionario.id,
                         child: Text(funcionario.nome),
                       );
                     }).toList(),
