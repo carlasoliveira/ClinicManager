@@ -13,7 +13,7 @@ class MenuLateral extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Agenda'),
+            title: Text('Agendamentos'),
             onTap: () {
               Navigator.pushNamed(context, '/agenda');
             },

@@ -82,7 +82,7 @@ class _FormFuncionarioState extends State<FormFuncionario> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _criarFuncionario,
-              child: Text('Criar Funcionário'),
+              child: Text('Cadastrar funcionário'),
             ),
           ],
         ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_flutter/widget/form_agendamento.dart';
+import 'package:projeto_flutter/widget/form_cliente.dart';
 import 'package:projeto_flutter/widget/form_procedimento.dart';
 import 'package:projeto_flutter/widget/pagina_agenda.dart';
 import 'package:projeto_flutter/widget/pagina_clientes.dart';
@@ -27,6 +29,8 @@ class App extends StatelessWidget{
         '/agenda': (context) => Agenda(),
         '/form-procedimento': (context) => FormProcedimento(),
         '/form-funcionario': (context) => FormFuncionario(),
+        '/form-cliente': (context) => FormCliente(),
+        '/form-agendamento': (context) => FormAgendamento()
       },
     );
   }

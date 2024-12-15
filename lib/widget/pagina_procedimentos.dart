@@ -25,7 +25,8 @@ class _ProcedimentoFormState extends State<ProcedimentoForm> {
     return await apProcedimento.buscar();
   }
 
-  Future<String> buscarFuncionario(int id) async {
+  Future<String> buscarFuncionario(dynamic id) async {
+    var nomeFunc = "";
     APFuncionario apFuncionario = APFuncionario();
     print("CHEGOU AQUI FUNÇÃO BUSCAR");
     DTOFuncionario funcionario = await apFuncionario.buscarPorId(id);
@@ -44,6 +45,7 @@ class _ProcedimentoFormState extends State<ProcedimentoForm> {
     }
  
     return Scaffold(
+      
       appBar: AppBar(title: Text('Procedimentos'),
       actions: <Widget>[
         IconButton(

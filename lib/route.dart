@@ -4,4 +4,5 @@ class Rota{
   static String FormularioProcedimento = '/form';
   static String ListaFuncionario = '/listfunc';
   static String FormularioFuncionario = '/formFunc';
+  static String FormProcedimento = '/listAgenda';
 }

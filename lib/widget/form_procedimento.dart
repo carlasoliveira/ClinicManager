@@ -150,7 +150,7 @@ class _FormProcedimentoState extends State<FormProcedimento> {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: _criarProcedimento,
-              child: Text('Criar Procedimento'),
+              child: Text('Cadastrar procedimento'),
             ),
           ],
         ),
